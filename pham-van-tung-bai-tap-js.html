@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="contaner">
+      <form action="" class="filter">
+        <label for=""
+          >Class Name:
+          <select value="Chọn Class" id="classNameSelect"> </select>
+        </label>
+        <label for="">
+          Chọn students:
+          <select value="Chọn Class" id="studentsSelect"> </select>
+        </label>
+      </form>
+      <div id="display-student"></div>
+    </div>
+    <script>
+      const classNameSelectElement = document.querySelector("#classNameSelect");
+      const studentsSelectElement = document.querySelector("#studentsSelect");
+      const displayStudentElement = document.querySelector("#display-student");
+      let listStudents = [
+        { id: 1, name: "tran van a", className: ".net" },
+        { id: 2, name: "tran van b", className: ".net" },
+        { id: 3, name: "tran van c", className: "angular" },
+        { id: 4, name: "tran van d", className: "angular" },
+        { id: 5, name: "tran van e", className: "java" },
+        { id: 6, name: "tran van f", className: "java" },
+        { id: 7, name: "tran van g", className: "java" },
+        { id: 8, name: "tran van h", className: "test" },
+        { id: 9, name: "tran van i", className: "test" },
+        { id: 10, name: "tran van j", className: "test" },
+      ];
+
+      let renderClassName = (students, element) => {
+        students = students.map(
+          (student) => `<option>${student.className}</option>`
+        );
+        students.unshift(
+          `<option selected value="none" >Vui lòng chọn</option>`
+        );
+        element.innerHTML = students.join("");
+      };
+
+      let renderStudents = (students, element) => {
+        students = students.map(
+          (student) => `<option>${student.name}</option>`
+        );
+        students.unshift(`<option selected >Vui lòng chọn</option>`);
+        element.innerHTML = students.join("");
+      };
+
+      renderClassName(listStudents, classNameSelectElement);
+
+      let filterStudentByClassName = (students, className) => {
+        return students.filter((student) => student.className === className);
+      };
+
+      classNameSelectElement.addEventListener("change", (e) => {
+        if (e.target.value === "none")
+          studentsSelectElement.style.display = "none";
+        renderStudents(
+          filterStudentByClassName(listStudents, e.target.value),
+          studentsSelectElement
+        );
+      });
+
+      studentsSelectElement.addEventListener("change", (e) => {
+        displayStudentElement.innerText =
+          "Sinh viên đang được chọn: " + e.target.value;
+      });
+    </script>
+  </body>
+</html>
