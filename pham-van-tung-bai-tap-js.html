@@ -37,13 +37,14 @@
       ];
 
       let renderClassName = (students, element) => {
-        students = students.map(
-          (student) => `<option>${student.className}</option>`
-        );
-        students.unshift(
+        listClassName = students.map( student => student.className )
+        console.log('list class Name: ', listClassName)
+        listClassName = listClassName.filter((c,i) => listClassName.indexOf(c) === i);
+        let listClassNameMaped = listClassName.map(className => `<option>${className}</option>`)
+        listClassNameMaped.unshift(
           `<option selected value="none" >Vui lòng chọn</option>`
         );
-        element.innerHTML = students.join("");
+        element.innerHTML = listClassNameMaped.join("");
       };
 
       let renderStudents = (students, element) => {
