@@ -12,7 +12,7 @@
           >Class Name:
           <select value="Chọn Class" id="classNameSelect"> </select>
         </label>
-        <label for="">
+        <label for="" id="students-select">
           Chọn students:
           <select value="Chọn Class" id="studentsSelect"> </select>
         </label>
@@ -20,9 +20,13 @@
       <div id="display-student"></div>
     </div>
     <script>
+      let hideSelect = true;
       const classNameSelectElement = document.querySelector("#classNameSelect");
       const studentsSelectElement = document.querySelector("#studentsSelect");
       const displayStudentElement = document.querySelector("#display-student");
+      const studentsSelectWrapperElement = document.querySelector("#students-select");
+
+      studentsSelectWrapperElement.style.display = 'none'
       let listStudents = [
         { id: 1, name: "tran van a", className: ".net" },
         { id: 2, name: "tran van b", className: ".net" },
@@ -62,10 +66,11 @@
       };
 
       classNameSelectElement.addEventListener("change", (e) => {
-        if (e.target.value === "none")
-          studentsSelectElement.style.display = "none";
+        const { value } = e.target
+        if (value === "none") studentsSelectWrapperElement.style.display = "none";
+        if (value !== 'none') studentsSelectWrapperElement.style.display = "block";
         renderStudents(
-          filterStudentByClassName(listStudents, e.target.value),
+          filterStudentByClassName(listStudents, value),
           studentsSelectElement
         );
       });
