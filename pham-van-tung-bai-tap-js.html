@@ -55,7 +55,7 @@
         students = students.map(
           (student) => `<option>${student.name}</option>`
         );
-        students.unshift(`<option selected >Vui lòng chọn</option>`);
+        students.unshift(`<option selected value='none' >Vui lòng chọn</option>`);
         element.innerHTML = students.join("");
       };
 
@@ -76,6 +76,7 @@
       });
 
       studentsSelectElement.addEventListener("change", (e) => {
+        if(e.target.value === 'none') return displayStudentElement.innerText = ''
         displayStudentElement.innerText =
           "Sinh viên đang được chọn: " + e.target.value;
       });
